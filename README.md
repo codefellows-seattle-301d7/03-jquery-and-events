@@ -71,10 +71,10 @@ Find those `TODO` items in the code, and tackle one of them.
 3. `cd 301/`
 4. `mkdir navigator` within this main "301" directory - **not your class repo directory** - this will now contain your partner's repo, and future partner repos when you initially start out as navigator and later switch as a driver). Since you are now a collaborator, you can `pull` and `push` changes to and from `orgin`.
 
-The new driver (original navigator):
-1. `git clone` the repo your patner Slacked you into your navigator folder.
-2. `git fetch origin` branch-name
-2. Now open the code in Atom. It's your turn to have the hands on the keyboard!
+The new driver (original navigator):  
+1. `git clone` the repo your patner Slacked you into your navigator folder.  
+2. `git fetch origin` branch-name  
+2. Now open the code in Atom. It's your turn to have the hands on the keyboard!  
 
 ## Submit your assignment
 
