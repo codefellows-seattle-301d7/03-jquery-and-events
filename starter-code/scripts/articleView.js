@@ -58,9 +58,10 @@ articleView.handleMainNav = function() {
       Clicking any .tab element should:
           1.) Hide all the .tab-content sections
           2.) Fade in the single .tab-content section that is associated with the clicked .tab element's data-content attribute. */
-  $('main-nav').on(/* CODE GOES HERE*/);
-  //under main nav, class tab, first element of class tab
-  //the compuper will click on that element (which will display home on page load)
+  $('.main-nav').on('click', '.tab', function() {
+    $('.tab-content').hide();
+    $('#' + $(this).data('content')).fadeIn();
+  });
   $('.main-nav .tab:first').click();
 };
 
@@ -80,3 +81,5 @@ articleView.setTeasers = function () {
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.handleMainNav();
+// articleView.setTeasers();
