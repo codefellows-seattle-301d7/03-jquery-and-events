@@ -68,7 +68,11 @@ articleView.handleMainNav = function() {
 articleView.setTeasers = function () {
   /* NOTE: this hides any elements after the first 2 (<p> tags in this case) in any article body */
   $('.article-body *:nth-of-type(n+2)').hide();
-
+  $('#articles').on('click', 'a.read-on', function(e) {
+    e.preventDefault();
+    $(this).parent().find('*').show();
+    $(this).hide();
+  });
   /* TODO: Add a delegated event handler to reveal the remaining body section. When a .read-on link is clicked, we can:
       1.) Prevent the default action of the link. (will try to take you somewhere else)
       2.) Reveal everything in that particular article now.
@@ -82,4 +86,4 @@ articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
 articleView.handleMainNav();
-// articleView.setTeasers();
+articleView.setTeasers();
