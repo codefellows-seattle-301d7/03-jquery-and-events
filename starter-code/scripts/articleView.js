@@ -25,7 +25,7 @@ articleView.handleAuthorFilter = function() {
     if ($(this).val()) {
       /* TODO: If the select box changes to an option that has a value, we should:
           1.) Hide all the articles,
-          2.) Fade in oly the articles that match based on the author that was selected. (Hint: attribute selector???) */
+          2.) Fade in only the articles that match based on the author that was selected. (Hint: attribute selector???) */
     } else {
       /* TODO: Otherwise, we should:
           1.) Show all the articles,
