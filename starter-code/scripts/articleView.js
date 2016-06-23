@@ -18,11 +18,16 @@ articleView.populateFilters = function() {
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
     if ($(this).val()) {
+      var val = $(this).val();
+      $('article').hide();
+      $('article[data-author-name="' + val +'"]').fadeIn();
+
       /* TODO: If the select bocx changes to an option that has a value, we should:
                 1. Hide all the articles,
                 2. Fade in only the articles that match based on the author
                   that was selected. (Hint: attribute selector???)  */
     } else {
+      $('article').not('.template').show();
       /* TODO: Otherwise, we should:
                 1. Show all the articles,
                 2. Except the one article we are using as a template. */
@@ -32,6 +37,16 @@ articleView.handleAuthorFilter = function() {
 };
 
 articleView.handleCategoryFilter = function() {
+  $('#category-filter').on('change', function(){
+    if ($(this).val()) {
+      val = $(this).val();
+      $('article').hide();
+      $('article[data-category="' + val + '"]').fadeIn();
+    } else {
+      $('article').not('.template').show();
+    }
+    $('#author-filter').val('');
+  });
   /* TODO: Just like we do for #author-filter above, we should handle change
             events on the #category-filter element. Be sure to reset
             the #author-filter while you're at it! */
@@ -44,7 +59,11 @@ articleView.handleMainNav = function() {
         1. Hide all the .tab-content sections.
         2. Fade in the single .tab-content section that is associated with
             the clicked .tab element's data-content attribute. */
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav').on('click','.tab', function(){
+    $('.tab-content').hide();
+    val = $(this).attr('data-content');
+    $('#' + val).fadeIn();
+  });
 
   $('.main-nav .tab:first').click();
 };
@@ -52,38 +71,32 @@ articleView.handleMainNav = function() {
 articleView.setTeasers = function () {
   /* NOTE: this hides any elements after the first 2 (<p> tags in this case)
             in any article body: */
-  $('.article-body *:nth-of-type(n+2)').hide();
 
-  /* TODO: Add a delegated event handler to reveal the remaining body section.
-          When a .read-on link is clicked, we can:
-          1. Prevent the default action of a link.
-          2. Reveal everything in that particular article now.
-          3. Hide the read-on link! (Might need event delegation here). */
 
-    // STRETCH GOAL!: change the 'Read More' link to 'Show Less'
+  var $hiddenBody = $('.article-body *:nth-of-type(n+2)');
+  $hiddenBody.hide();
+  $('article').on('click','.read-on', function(){
+    if ($(this).html() === 'Read on →') {
+      $(this).prev().children().show();
+      $(this).html('&larr; Show less');
+    } else {
+      $(this).prev().children('*:nth-of-type(n+2)').hide();
+      $(this).html('Read on &rarr;');
+    }
+    return false;
+  });
 
+ /* TODO: Add a delegated event handler to reveal the remaining body section.
+         When a .read-on link is clicked, we can:
+         1. Prevent the default action of a link.
+         2. Reveal everything in that particular article now.
+         3. Hide the read-on link! (Might need event delegation here)*/
+ // STRETCH GOAL!: change the 'Read More' link to 'Show Less'
 };
 
-// TODO: Invoke all of the above functions (I, mean, methods!);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-};
+//TODO: Invoke all of the above functions (methods);
+articleView.populateFilters();
+articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
