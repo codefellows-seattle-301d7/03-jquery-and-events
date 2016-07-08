@@ -98,6 +98,11 @@ articleView.setTeasers = function() {
   //       Ideally, we should attach this as just 1 event handler
   //       on the #articles section, and let it process any .read-on clicks that
   //       happen.
+  $('#articles').on('click', 'a.read-on', function(e) {
+    e.preventDefault();
+    $(this).parent().find('*').show();
+    $(this).hide();
+  });
 
   // STRETCH GOAL!: change the read more link to read less
 };
