@@ -35,21 +35,35 @@ articleView.handleAuthorFilter = function() {
 };
 
 articleView.handleCategoryFilter = function() {
-  /* TODO: Just like we do for #author-filter above, we should handle change
+  /* TODONE: Just like we do for #author-filter above, we should handle change
             events on the #category-filter element. Be sure to reset
             the #author-filter while you're at it! */
+  $('#category-filter').on('change', function() {
+    if ($(this).val()) {
+      $('article').hide();
+      $('article[data-category="' + $(this).val() + '"]').fadeIn();
+    } else {
+      $('article').not('.template').fadeIn();
+    }
+    $('#author-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function() {
-  /* TODO: Complete the delegated event handler below to help
+  /* TODONE: Complete the delegated event handler below to help
             power the tabs feature.
       Clicking any .tab element should:
         1. Hide all the .tab-content sections.
         2. Fade in the single .tab-content section that is associated with
             the clicked .tab element's data-content attribute. */
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav').on('click', '.tab', function(){
+    $('.tab-content').hide();
+    $('#' + $(this).data('content')).fadeIn();
+  });
 
-  $('.main-nav .tab:first').click();
+  $('.main-nav .tab:first').on('click', function(){
+    $('.tab-content').hide().fadeIn();
+  });
 };
 
 articleView.setTeasers = function () {
@@ -57,17 +71,26 @@ articleView.setTeasers = function () {
             in any article body: */
   $('.article-body *:nth-of-type(n+2)').hide();
 
-  /* TODO: Add a delegated event handler to reveal the remaining body section.
+  /* TODONE: Add a delegated event handler to reveal the remaining body section.
           When a .read-on link is clicked, we can:
           1. Prevent the default action of a link.
           2. Reveal everything in that particular article now.
           3. Hide the read-on link! (Might need event delegation here). */
+  var author = $(this).data('author');
+  $('#articles').on('click', 'a.read-on', function(event) {
+    event.preventDefault();
+    $(this).parent().find('*').show();
+    $(this).hide();
+  });
 
     // STRETCH GOAL!: change the 'Read More' link to 'Show Less'
 
 };
 
-// TODO: Invoke all of the above functions (I, mean, methods!);
+// TODONE: Invoke all of the above functions (I, mean, methods!);
 
 articleView.populateFilters();
 articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
